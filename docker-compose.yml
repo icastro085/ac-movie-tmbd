@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    container_name: ac-movie-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 4211:4211
+    volumes:
+      - ./api:/usr/src/api
+    restart: always
+
+  app:
+    container_name: ac-movie-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - 4212:4212
+    volumes:
+      - ./app:/usr/src/app
+    restart: always
+    links:
+      - api

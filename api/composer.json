@@ -1,0 +1,18 @@
+{
+  "name": "ac/movie-api",
+  "authors": [
+    {
+      "name": "Ivanildo de Castro",
+      "email": "ivanildo.decastro085@gmail.com"
+    }
+  ],
+  "require": {
+    "slim/slim": "^3.12",
+    "oscarotero/psr7-middlewares": "^3.21"
+  },
+  "config": {
+    "platform": {
+      "php": "7.1.3"
+    }
+  }
+}
