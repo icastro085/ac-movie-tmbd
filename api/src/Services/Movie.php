@@ -98,7 +98,7 @@ class Movie {
           return $queryParams[$key] !== NULL ? $queryParams[$key] :  $defaultQuery[$key];
         }, $keys))
       ) + [
-        'api_key1' => $this->_apiKey
+        'api_key' => $this->_apiKey
       ];
   }
 }

@@ -13,9 +13,8 @@ class Index {
     $container = $app->getContainer();
 
     $this->setPageNotFound($container);
-
-    $config = json_decode(file_get_contents(ROOT_PATH . '/config/index.json'));
-    $container['config'] = $config;
+    $this->setErrorPage($container);
+    $this->setConfig($container);
 
     $this->middlewares($app);
     $this->routes($app);
@@ -36,6 +35,23 @@ class Index {
           ->withJson([ 'message' => 'Page not found' ]);
       };
     };
+  }
+
+  function setErrorPage($container) {
+    $container['errorHandler'] = function ($c) {
+      return function ($request, $response, $exception) use ($c) {
+          return $response->withStatus(500)
+              ->withJson([
+                'message' => 'Something went wrong! - ' . $exception->getMessage()
+              ]);
+      };
+    };
+  }
+
+  function setConfig($container) {
+    $container['config'] = json_decode(
+      file_get_contents(ROOT_PATH . '/config/index.json')
+    );
   }
 
   function routes($app) {
