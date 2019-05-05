@@ -27,6 +27,10 @@ export const search = ({ page, query }) => {
 
 };
 
+export const genre = async () => {
+  const response = await api.get(`/genre`);
+  return response.data;
+};
 
 export const formatDate = (release_date) => (
   new Date(release_date).toLocaleDateString(

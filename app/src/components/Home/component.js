@@ -10,16 +10,17 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { changeTitle, upcoming, movies } = this.props;
+    const { changeTitle, upcoming, movies, genreMovie } = this.props;
     changeTitle('The Upcoming Movies');
 
     if (!movies || !movies.results.length) {
+      genreMovie();
       upcoming({});
     }
   }
 
   render() {
-    const { movies, upcoming } = this.props;
+    const { movies, upcoming, genre } = this.props;
 
     if (!movies || !movies.results.length) {
       return <Loading />;
@@ -30,7 +31,7 @@ export default class Home extends Component {
       <div className="row mt-5">
       {
         movies.results.map(data => (
-          <CardMovie key={data.id} {...data} />
+          <CardMovie key={data.id} {...data} genre={genre} />
         ))
       }
       </div>

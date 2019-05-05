@@ -83,6 +83,26 @@ class Movie {
     }
   }
 
+  function genre() {
+    try {
+      $response = $this->getClient()->request(
+        'GET',
+        'genre/movie/list',
+        [
+          'query' => [ 'api_key' => $this->_apiKey ]
+        ]
+      );
+
+      return json_decode($response->getBody()->getContents());
+    } catch (ClientException $e) {
+      return [
+        'status_code' => '500',
+        'status_message' => 'Internal Erro Server',
+        'success' => false
+      ];
+    }
+  }
+
   function getClient() {
     return new \GuzzleHttp\Client([
       'base_uri' => $this->_baseUri

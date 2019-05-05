@@ -59,6 +59,7 @@ class Index {
       $this->get('/', CIndex::class . ':index');
       $this->get('/movie/upcoming', CMovie::class . ':upcoming');
       $this->get('/movie/search', CMovie::class . ':search');
+      $this->get('/movie/genre', CMovie::class . ':genre');
       $this->get('/movie/{idMovie}', CMovie::class . ':details');
     });
   }

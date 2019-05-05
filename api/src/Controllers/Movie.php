@@ -34,4 +34,9 @@ class Movie {
     $data = $this->_service->search($queryParams);
     return $response->withJson($data, 200);
   }
+
+  function genre(Request $request, Response $response) {
+    $data = $this->_service->genre();
+    return $response->withJson($data, 200);
+  }
 }

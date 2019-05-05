@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Loading from '../Loading';
 import { getImageRootPath, formatDate } from '../../services/movie';
@@ -48,30 +48,41 @@ export default class Details extends Component {
 
     return (
       <div className="d-flex mt-5">
-        <div className="w-100 pr-3 position-relative">
-          <i className="fas fa-venus-mars mr-2 float-left" />
-          <ul className="list-genres mb-2">
-            {
-              (genres || []).map(({ id, name }) => {
-                return <li key={id}>{name}</li>
-              })
-            }
-          </ul>
+        <div className="w-100 pr-3 position-relative box-movie-text">
+          {
+            (genres || []).length ? (
+              <Fragment>
+                <i className="fas fa-venus-mars mr-2 float-left" />
+                <ul className="list-genres mb-2">
+                  {
+                    (genres || []).map(({ id, name }) => {
+                      return <li key={id}>{name}</li>
+                    })
+                  }
+                </ul>
+              </Fragment>
+            ) : null
+          }
 
           <h2>{original_title}</h2>
           <span className="date">
             <i className="far fa-calendar-alt mr-2" />
             {formatDate(release_date)}
           </span>
+          {
+            overview && (
+              <Fragment>
+                <hr />
+                <h5 className="font-weight-bold">Sinopse</h5>
+                <p>
+                  <i className="fas fa-info-circle mr-2" />{overview}
+                </p>
+              </Fragment>
+            )
+          }
 
-          <hr />
-          <h5 className="font-weight-bold">Sinopse</h5>
-          <p>
-            <i className="fas fa-info-circle mr-2" />{overview}
-          </p>
-
-          <a href="#/" className="position-absolute text-success btn-back">
-          <i className="fas fa-angle-double-left" /> Back
+          <a title="BACK" href="#/" className="position-absolute text-success btn-back">
+            <i class="fas fa-arrow-left" />
           </a>
         </div>
 
