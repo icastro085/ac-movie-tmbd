@@ -3,6 +3,7 @@ import React from 'react';
 import { getImageRootPath, formatDate } from '../../services/movie';
 
 const TEXT_LIMIT = 150;
+const TITLE_LIMIT = 25;
 
 const CardMovie = ({
   id,
@@ -34,7 +35,10 @@ const CardMovie = ({
             )
           }
           </div>
-          <h5 className="title">{title}</h5>
+          <h5 className="title">
+            {title.substring(0, TITLE_LIMIT)}
+            {title.length > TITLE_LIMIT ? '...' : ''}
+          </h5>
           <span className="date">
             <i className="far fa-calendar-alt mr-2" />
             {formatDate(release_date)}
@@ -56,7 +60,7 @@ const CardMovie = ({
           href={`#/movie/${id}`}
           className="see-more font-weight-bold text-success"
         >
-          <i class="fas fa-arrow-right" />
+          <i className="fas fa-arrow-right" />
         </a>
       </div>
 
