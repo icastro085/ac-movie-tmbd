@@ -14,7 +14,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies, upcoming } = this.props;
 
     if (!movies.results.length) {
       return <p>No result!</p>;
@@ -24,7 +24,9 @@ export default class Home extends Component {
     for(let i = 0; i < movies.total_pages; i++) {
       pageNumbers.push(
         <li className={`page-item ${(i + 1) == movies.page ? 'active' : ''}`} key={`keyp${i}`}>
-          <a className="page-link" href="#">{i + 1}</a>
+          <a className="page-link" onClick={() => upcoming({page: i + 1})}>
+            {i + 1}
+          </a>
         </li>
       );
     }

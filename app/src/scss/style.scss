@@ -18,7 +18,7 @@
   width: 100%;
 
   img {
-    height: 200px;
+    max-height: 200px;
   }
 
   .title {
@@ -29,7 +29,7 @@
     color: rgba(0,0,0,0.6);
   }
 
-  p.overview {
+  .overview {
     word-wrap: break-word;
     white-space: normal;
     color: #4d4d4d;
