@@ -38,6 +38,27 @@ class Movie {
     }
   }
 
+  function getDetails($idMovie) {
+    try {
+      $client = new \GuzzleHttp\Client([
+        'base_uri' => $this->_baseUri
+      ]);
+
+      $response = $client->request(
+        'GET',
+        "movie/$idMovie",
+        [
+          'query' => [ 'api_key' => $this->_apiKey ]
+        ]
+      );
+
+      return json_decode($response->getBody()->getContents());
+    } catch (ClientException $e) {
+      echo Psr7\str($e->getRequest());
+      echo Psr7\str($e->getResponse());
+    }
+  }
+
   function getValidQueryUpcoming($queryParams) {
     $keys = ['page', 'language' ];
     $defaultQuery = ['page' => 1, 'language' => 'en-US'];

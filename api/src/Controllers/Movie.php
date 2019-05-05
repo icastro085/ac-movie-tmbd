@@ -23,4 +23,9 @@ class Movie {
     $data = $this->_service->getUpcoming($queryParams);
     return $response->withJson($data, 200);
   }
+
+  function details(Request $request, Response $response, array $args = array()) {
+    $data = $this->_service->getDetails($args['idMovie']);
+    return $response->withJson($data, 200);
+  }
 }
