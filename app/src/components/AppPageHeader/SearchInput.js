@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toastr } from 'react-redux-toastr';
 import { search } from '../../reducers/movie';
+import { changeTitle } from '../../reducers/app';
 
 const element = React.createRef();
 const TEXT_LIMIT = 3;
 
-const SearchInput = ({ query, searchMovies, location, history }) => (
+const SearchInput = ({
+  query,
+  searchMovies,
+  location,
+  history,
+  changeTitle,
+}) => (
   <form
     className="form-search"
     action="/#/"
@@ -20,7 +27,7 @@ const SearchInput = ({ query, searchMovies, location, history }) => (
         toastr.error('Type text with than 3 character');
       } else {
         searchMovies({ query });
-
+        changeTitle('Looking For Movies');
         if (!/search/g.test(location.pathname)) {
           history.push('/search');
         }
@@ -44,6 +51,7 @@ const mapStateToProps = ({ movie: { query } }) => ({ query });
 const mapDispatchToProps = dispatch => (
   {
     searchMovies: ({ page, query }) => dispatch(search({ page, query })),
+    changeTitle: title => dispatch(changeTitle(title)),
   }
 );
 
