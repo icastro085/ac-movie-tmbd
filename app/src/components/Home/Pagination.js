@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AppPageHeader = ({ title }) => (
+const Pagination = ({ title }) => (
   <header className="header">
     <div className="container content">
       <h1>{title}</h1>
@@ -8,4 +8,4 @@ const AppPageHeader = ({ title }) => (
   </header>
 );
 
-export default AppPageHeader;
+export default Pagination;

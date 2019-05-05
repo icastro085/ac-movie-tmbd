@@ -11,9 +11,11 @@ const App = () => (
   <Router>
     <Fragment>
       <AppPageHeader />
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
+      <section className="container">
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </section>
     </Fragment>
   </Router>
 );
