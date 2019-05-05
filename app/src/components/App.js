@@ -15,6 +15,7 @@ const App = () => (
       <section className="container">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/search" component={Home} />
           <Route exact path="/movie/:idMovie" component={Details} />
         </Switch>
       </section>

@@ -10,10 +10,28 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { changeTitle, upcoming, movies, genreMovie } = this.props;
+    const {
+      changeTitle,
+      upcoming,
+      movies,
+      genreMovie,
+      location,
+      history,
+    } = this.props;
+
     changeTitle('The Upcoming Movies');
 
-    if (!movies || !movies.results.length) {
+    if (
+      !/search/g.test(location.pathname) &&
+      (!movies || !movies.results.length)
+    ) {
+      genreMovie();
+      upcoming({});
+    } else if (
+      /search/g.test(location.pathname) &&
+      (!movies || !movies.results.length)
+    ){
+      history.push('/');
       genreMovie();
       upcoming({});
     }
@@ -31,7 +49,7 @@ export default class Home extends Component {
   render() {
     const { movies, genre } = this.props;
 
-    if (!movies || !movies.results.length) {
+    if (!movies || !movies.results || !movies.results.length) {
       return <Loading />;
     }
 
