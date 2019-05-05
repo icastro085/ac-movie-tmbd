@@ -27,7 +27,10 @@ const CardMovie = ({
         <a href={`#/movie/${id}`} className="see-more">See more +</a>
       </div>
 
-      <img alt={title} src={`${IMAGE_ROOT}${poster_path || backdrop_path}`} />
+      {
+        (poster_path || backdrop_path) &&
+        <img alt={title} src={`${IMAGE_ROOT}${poster_path || backdrop_path}`} />
+      }
     </div>
   </div>
 );
