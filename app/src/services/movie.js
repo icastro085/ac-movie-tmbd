@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: URL_API,
 });
 
-export const IMAGE_ROOT = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
+export const IMAGE_ROOT = 'https://image.tmdb.org/t/p/';
 
 export const upcoming = async ({ page = 1}) => {
   const response = await api.get('/upcoming', {
@@ -18,8 +18,9 @@ export const upcoming = async ({ page = 1}) => {
   return response.data;
 };
 
-export const details = ({ idMovie }) => {
-
+export const details = async ({ idMovie }) => {
+  const response = await api.get(`/${idMovie}`);
+  return response.data;
 };
 
 export const search = ({ page, query }) => {
@@ -31,4 +32,8 @@ export const formatDate = (release_date) => (
   new Date(release_date).toLocaleDateString(
     'en-US', { year: 'numeric', month: 'long', day: 'numeric' }
   )
-)
+);
+
+export const getImageRootPath = (w, h) => (
+  `${IMAGE_ROOT}w${w}_and_h${h}_bestv2`
+);

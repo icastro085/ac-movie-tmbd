@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import CardMovie from './CardMovie';
 import Pagination from './Pagination';
+import Loading from '../Loading';
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,16 +10,19 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const { changeTitle, upcoming } = this.props;
-    changeTitle('Are the Upcoming Movies');
-    upcoming({});
+    const { changeTitle, upcoming, movies } = this.props;
+    changeTitle('The Upcoming Movies');
+
+    if (!movies || !movies.results.length) {
+      upcoming({});
+    }
   }
 
   render() {
     const { movies, upcoming } = this.props;
 
     if (!movies || !movies.results.length) {
-      return <p>No result!</p>;
+      return <Loading />;
     }
 
     return (

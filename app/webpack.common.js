@@ -46,6 +46,13 @@ module.exports = {
           },
         ],
       },
+
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          require.resolve('file-loader'),
+        ],
+      },
     ],
   },
 };

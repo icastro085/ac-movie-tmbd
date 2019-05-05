@@ -6,6 +6,7 @@ import {
 
 import AppPageHeader from './AppPageHeader';
 import Home from './Home';
+import Details from './Details';
 
 const App = () => (
   <Router>
@@ -14,6 +15,7 @@ const App = () => (
       <section className="container">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/movie/:idMovie" component={Details} />
         </Switch>
       </section>
     </Fragment>
