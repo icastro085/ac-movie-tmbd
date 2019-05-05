@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 const MIN_PART = 0.05;
+const MAX_PART_PAGE = 5;
 
 export default class Pagination extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ export default class Pagination extends Component {
       this.countPart = this.firstPart = this.lastPart = this.middleFistPart = this.middleLastPart = -1;
     } else {
       this.countPart = Math.ceil(totalPages * MIN_PART);
+      this.countPart = this.countPart > MAX_PART_PAGE ? MAX_PART_PAGE : this.countPart;
+
       this.firstPart = this.countPart;
       this.lastPart = totalPages - this.countPart;
 
