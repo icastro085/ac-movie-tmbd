@@ -107,3 +107,20 @@ html, body {
 .box-movie-text {
   min-height: 450px;
 }
+
+.form-search {
+  float: right;
+
+  input {
+    float: left;
+    width: calc(100% - 70px);
+  }
+
+  button {
+    margin-left: 10px;
+    .fa-search {
+      font-size: 32px;
+      line-height: 32px;
+    }
+  }
+}

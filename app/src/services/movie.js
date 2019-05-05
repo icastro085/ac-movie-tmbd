@@ -23,8 +23,14 @@ export const details = async ({ idMovie }) => {
   return response.data;
 };
 
-export const search = ({ page, query }) => {
-
+export const search = async ({ page, query }) => {
+  const response = await api.get('/search', {
+    params: {
+      page,
+      query,
+    }
+  });
+  return response.data;
 };
 
 export const genre = async () => {

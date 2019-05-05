@@ -82,7 +82,7 @@ export default class Details extends Component {
           }
 
           <a title="BACK" href="#/" className="position-absolute text-success btn-back">
-            <i class="fas fa-arrow-left" />
+            <i className="fas fa-arrow-left" />
           </a>
         </div>
 

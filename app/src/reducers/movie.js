@@ -8,9 +8,15 @@ import {
   upcoming as upcomingMovie,
   details as detailsMovie,
   genre as genreMovie,
+  search as searchMovie,
 } from '../services/movie';
 
-const defaultState = { movies: { results: []}, movie: {}, genre: [] };
+const defaultState = {
+  movies: { results: []},
+  movie: {},
+  genre: [],
+  query: '',
+};
 
 export const {
   upcoming,
@@ -23,11 +29,16 @@ export const {
     const data = await upcomingMovie({ page });
     return { movies: data };
   },
+
   DETAILS: async ({ idMovie }) => {
     const data  = await detailsMovie({ idMovie });
     return { movie: data };
   },
-  SEARCH: page => ({ page }),
+
+  SEARCH: async ({ page, query }) => {
+    const data = await searchMovie({ page, query });
+    return { movies: data, query };
+  },
 
   RESET_DETAILS: () => ({ movie: {}}),
 
@@ -39,10 +50,10 @@ export const {
 
 const reducer = handleActions(
   {
-    [combineActions(upcoming)]: (
+    [combineActions(upcoming, search)]: (
       state,
-      { payload: { movies } }
-    ) => ({ ...state, movies }),
+      { payload: { movies, query } }
+    ) => ({ ...state, movies, query }),
 
     [combineActions(details, resetDetails)]: (
       state,
