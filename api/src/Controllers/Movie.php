@@ -28,4 +28,10 @@ class Movie {
     $data = $this->_service->getDetails($args['idMovie']);
     return $response->withJson($data, 200);
   }
+
+  function search(Request $request, Response $response) {
+    $queryParams = $request->getQueryParams();
+    $data = $this->_service->search($queryParams);
+    return $response->withJson($data, 200);
+  }
 }

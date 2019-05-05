@@ -19,32 +19,30 @@ class Movie {
 
   function getUpcoming(array $queryParams = array()) {
     try {
-      $client = new \GuzzleHttp\Client([
-        'base_uri' => $this->_baseUri
-      ]);
-
-      $response = $client->request(
+      $response = $this->getClient()->request(
         'GET',
         'movie/upcoming',
         [
-          'query' => $this->getValidQueryUpcoming($queryParams)
+          'query' => $this->getValidQueryUpcoming(
+            $queryParams,
+            [ 'page', 'language' ]
+          )
         ]
       );
 
       return json_decode($response->getBody()->getContents());
     } catch (ClientException $e) {
-      echo Psr7\str($e->getRequest());
-      echo Psr7\str($e->getResponse());
+      return [
+        'status_code' => '500',
+        'status_message' => 'Internal Erro Server',
+        'success' => false
+      ];
     }
   }
 
   function getDetails($idMovie) {
     try {
-      $client = new \GuzzleHttp\Client([
-        'base_uri' => $this->_baseUri
-      ]);
-
-      $response = $client->request(
+      $response = $this->getClient()->request(
         'GET',
         "movie/$idMovie",
         [
@@ -54,21 +52,53 @@ class Movie {
 
       return json_decode($response->getBody()->getContents());
     } catch (ClientException $e) {
-      echo Psr7\str($e->getRequest());
-      echo Psr7\str($e->getResponse());
+      return [
+        'status_code' => '500',
+        'status_message' => 'Internal Erro Server',
+        'success' => false
+      ];
     }
   }
 
-  function getValidQueryUpcoming($queryParams) {
-    $keys = ['page', 'language' ];
-    $defaultQuery = ['page' => 1, 'language' => 'en-US'];
+  function search(array $queryParams = array()) {
+    try {
+      $response = $this->getClient()->request(
+        'GET',
+        'search/movie',
+        [
+          'query' => $this->getValidQueryUpcoming(
+            $queryParams,
+            [ 'page', 'language' , 'query' ]
+          )
+        ]
+      );
 
-    return array_merge(
-      array_combine($keys,
+      return json_decode($response->getBody()->getContents());
+    } catch (ClientException $e) {
+      return [
+        'status_code' => '500',
+        'status_message' => 'Internal Erro Server',
+        'success' => false
+      ];
+    }
+  }
+
+  function getClient() {
+    return new \GuzzleHttp\Client([
+      'base_uri' => $this->_baseUri
+    ]);
+  }
+
+  function getValidQueryUpcoming($queryParams, array $keys) {
+    $defaultQuery = [ 'page' => 1, 'language' => 'en-US' ];
+
+    return array_merge(array_combine(
+        $keys,
         array_map(function ($key) use ($queryParams, $defaultQuery ) {
-        return $queryParams[$key] !== NULL ? $queryParams[$key] :  $defaultQuery[$key];
-      }, $keys))) + [
-        'api_key' => $this->_apiKey
+          return $queryParams[$key] !== NULL ? $queryParams[$key] :  $defaultQuery[$key];
+        }, $keys))
+      ) + [
+        'api_key1' => $this->_apiKey
       ];
   }
 }
