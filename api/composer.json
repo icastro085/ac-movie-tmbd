@@ -8,7 +8,10 @@
   ],
   "require": {
     "slim/slim": "^3.12",
-    "oscarotero/psr7-middlewares": "^3.21"
+    "oscarotero/psr7-middlewares": "^3.21",
+    "rmccue/requests": "^1.7",
+    "guzzlehttp/guzzle": "^6.3",
+    "vlucas/phpdotenv": "^3.3"
   },
   "config": {
     "platform": {

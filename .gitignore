@@ -1,5 +1,6 @@
 api/vendor
 api/composer.lock
+api/.env
 app/node_modules
 app/yarn.lock
 app/yarn-error.log
