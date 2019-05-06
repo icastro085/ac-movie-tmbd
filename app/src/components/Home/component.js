@@ -55,7 +55,13 @@ export default class Home extends Component {
 
     return (
       <Fragment>
-        <div className="row mt-5">
+        <Pagination
+          totalPages={movies.total_pages}
+          currentPage={movies.page}
+          changePage={(page) => this.onChangePage(page)}
+        />
+
+        <div className="row mt-2">
         {
           movies.results.map(data => (
             <CardMovie key={data.id} {...data} genre={genre} />

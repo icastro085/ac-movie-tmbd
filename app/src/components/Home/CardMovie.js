@@ -36,8 +36,10 @@ const CardMovie = ({
           }
           </div>
           <h5 className="title">
-            {title.substring(0, TITLE_LIMIT)}
-            {title.length > TITLE_LIMIT ? '...' : ''}
+            <a href={`/#/movie/${id}`}>
+              {title.substring(0, TITLE_LIMIT)}
+              {title.length > TITLE_LIMIT ? '...' : ''}
+            </a>
           </h5>
           <span className="date">
             <i className="far fa-calendar-alt mr-2" />
@@ -66,7 +68,9 @@ const CardMovie = ({
 
       {
         (poster_path || backdrop_path) &&
-        <img alt={title} src={`${getImageRootPath(185, 278)}${poster_path || backdrop_path}`} />
+        <a href={`/#/movie/${id}`}>
+          <img alt={title} src={`${getImageRootPath(185, 278)}${poster_path || backdrop_path}`} />
+        </a>
       }
     </div>
   </div>
