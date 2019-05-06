@@ -55,8 +55,10 @@ class Index {
   }
 
   function routes($app) {
+
+    $app->get('/', CIndex::class . ':index');
+
     $app->group('/api', function() {
-      $this->get('/', CIndex::class . ':index');
       $this->get('/movie/upcoming', CMovie::class . ':upcoming');
       $this->get('/movie/search', CMovie::class . ':search');
       $this->get('/movie/genre', CMovie::class . ':genre');

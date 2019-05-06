@@ -65,7 +65,7 @@ export default class Pagination extends Component {
       this.setState({
         currentPage: page,
       }, () => this.idTimeoutChangePage = (
-        setTimeout(() => changePage(page), 500))
+        setTimeout(() => changePage(page), 1000))
       );
     }
   }

@@ -1,5 +1,4 @@
 <?php
-
 const DS = DIRECTORY_SEPARATOR;
 const ROOT_PATH = __DIR__ . DS;
 const SRC_PATH = ROOT_PATH . 'src' . DS;

@@ -7,7 +7,7 @@ docker-compose run app yarn build
 docker build -t heroku-web-movie-ac .
 
 # login in heroku
-heroku login
+# heroku login
 
 # login in heroku container registry
 heroku container:login
