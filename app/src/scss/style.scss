@@ -12,7 +12,7 @@ html, body {
     margin: 0 auto;
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 100%;
   }
 }
 
@@ -22,7 +22,7 @@ html, body {
   width: 100%;
 
   img {
-    max-height: 200px;
+    max-height: 100%;
   }
 
   .title {
@@ -121,6 +121,75 @@ html, body {
     .fa-search {
       font-size: 32px;
       line-height: 32px;
+    }
+  }
+}
+
+@media (max-width: 414px) {
+  .header {
+    height: 150px;
+
+    .content{
+      flex-direction: column;
+      padding: 20px;
+
+      .h1{
+        font-size: 24px;
+      }
+
+      form {
+        width: 100%
+      }
+    }
+  }
+
+  .card-movie {
+    flex-direction: column-reverse;
+
+    > div:first-of-type {
+      height: 250px;
+    }
+
+    img {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  .details {
+    flex-direction: column-reverse;
+
+    img {
+      width: 100%;
+      margin: 10px auto;
+    }
+  }
+}
+
+@media (max-width: 812px) {
+  .header {
+    height: 150px;
+
+    .content{
+      flex-direction: column;
+      padding: 20px;
+
+      .h1{
+        font-size: 24px;
+      }
+
+      form {
+        width: 100%
+      }
+    }
+  }
+
+  .details {
+    flex-direction: column-reverse;
+
+    img {
+      width: 100%;
+      margin: 10px auto;
     }
   }
 }

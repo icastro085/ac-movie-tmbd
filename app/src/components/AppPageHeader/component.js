@@ -4,10 +4,10 @@ import SearchInput from './SearchInput';
 const AppPageHeader = ({ title }) => (
   <header className="header">
     <div className="container content justify-content-between">
-      <h1>
+      <p className="h1">
         <i className="fas fa-film mr-2" />
         {title}
-      </h1>
+      </p>
 
       <SearchInput />
     </div>

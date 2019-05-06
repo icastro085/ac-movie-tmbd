@@ -55,12 +55,6 @@ export default class Home extends Component {
 
     return (
       <Fragment>
-        <Pagination
-          totalPages={movies.total_pages}
-          currentPage={movies.page}
-          changePage={(page) => this.onChangePage(page)}
-        />
-
         <div className="row mt-5">
         {
           movies.results.map(data => (
@@ -68,6 +62,12 @@ export default class Home extends Component {
           ))
         }
         </div>
+
+        <Pagination
+          totalPages={movies.total_pages}
+          currentPage={movies.page}
+          changePage={(page) => this.onChangePage(page)}
+        />
       </Fragment>
     );
   }

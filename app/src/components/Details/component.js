@@ -47,7 +47,7 @@ export default class Details extends Component {
     }
 
     return (
-      <div className="d-flex mt-5">
+      <div className="d-flex mt-5 details">
         <div className="w-100 pr-3 position-relative box-movie-text">
           {
             (genres || []).length ? (

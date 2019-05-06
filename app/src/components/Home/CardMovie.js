@@ -15,7 +15,7 @@ const CardMovie = ({
   genre_ids,
   genre,
 }) => (
-  <div className="col-md-6 mb-4">
+  <div className="col-lg-6 mb-4 col-md-12">
     <div className="border-bottom card-movie d-flex">
       
       <div className="p-3 w-100">
