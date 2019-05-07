@@ -46,7 +46,7 @@ export default class Home extends Component {
   }
 
   componentWillReceiveProps({ movies, loading }) {
-    if (movies.success === false) {
+    if (!movies || movies.success === false) {
       toastr.warning('Something goes wrong!!');
 
       this.setState({
