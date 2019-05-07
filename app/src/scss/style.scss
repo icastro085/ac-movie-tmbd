@@ -147,7 +147,7 @@ html, body {
     flex-direction: column-reverse;
 
     > div:first-of-type {
-      height: 250px;
+      min-height: 250px;
     }
 
     img {

@@ -85,7 +85,7 @@ export default class Details extends Component {
               <Fragment>
                 <hr />
                 <h5 className="font-weight-bold">Sinopse</h5>
-                <p>
+                <p className="mb-5">
                   <i className="fas fa-info-circle mr-2" />{overview}
                 </p>
               </Fragment>

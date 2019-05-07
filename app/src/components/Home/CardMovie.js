@@ -54,7 +54,7 @@ const CardMovie = ({
 
           {
             overview && (
-              <p className="overview mt-2">
+              <p className="overview mt-2 mb-5">
                 <i className="fas fa-info-circle mr-2" />
                 {overview.substring(0, TEXT_LIMIT)}
                 {overview.length > TEXT_LIMIT ? '...' : null}
