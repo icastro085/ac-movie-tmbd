@@ -60,7 +60,7 @@ $ docker-compose build
 $ docker-compose up
 ```
 ---
-***NOTA***: *Como foi observado, só pela url [localhost:4212](http://localhost:4212) é possível usar o sistema*.
+***NOTA***: *Como foi observado, basta usar a url [localhost:4212](http://localhost:4212) para usar o sistema*.
 
 ***Para parar o projeto***
 ```bash
