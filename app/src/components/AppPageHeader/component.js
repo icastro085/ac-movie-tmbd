@@ -5,7 +5,9 @@ const AppPageHeader = ({ title }) => (
   <header className="header">
     <div className="container content justify-content-between">
       <p className="h1">
-        <i className="fas fa-film mr-2" />
+        <a href="/#/">
+          <i className="fas fa-film mr-2" />
+        </a>
         {title}
       </p>
 

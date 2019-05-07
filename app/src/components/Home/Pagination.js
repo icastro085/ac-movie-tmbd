@@ -4,8 +4,6 @@ export default class Pagination extends Component {
   constructor(props) {
     super(props);
 
-    this.idTimeoutChangePage = null;
-
     this.state = {
       currentPage: this.props.currentPage,
       totalPages: this.props.totalPages,
@@ -41,24 +39,22 @@ export default class Pagination extends Component {
       this.lastPage = currentPage;
       this.setState({
         currentPage: page,
-      }, () => this.idTimeoutChangePage = (
-        setTimeout(() => changePage(page), 1000))
-      );
+      }, () => changePage(page));
     } else {
       this.setState({ currentPage });
     }
   }
 
   render() {
-    const { totalPages } = this.props;
+    const { totalPages, url } = this.props;
     const { currentPage } = this.state;
 
     return (
       <nav className="my-4">
         <ul className="pagination pagination-md">
           <li className={`page-item ${(currentPage === 1) && 'disabled'}`}>
-            <a href="/#/" className="page-link" onClick={() => this.onChangePage(currentPage - 1)}>
-            <i className="fas fa-arrow-left" />
+            <a href={`/#${url}`} className="page-link" onClick={() => this.onChangePage(currentPage - 1)}>
+              <i className="fas fa-arrow-left" />
             </a>
           </li>
           <li className="mx-2 col-md-2 col-sm-6">
@@ -84,7 +80,7 @@ export default class Pagination extends Component {
             </div>
           </li>
           <li className={`page-item ${(currentPage === totalPages) && 'disabled'}`}>
-            <a href="/#/" className="page-link" onClick={() => this.onChangePage(currentPage + 1)}>
+            <a href={`/#${url}`} className="page-link" onClick={() => this.onChangePage(currentPage + 1)}>
               <i className="fas fa-arrow-right" />
             </a>
           </li>

@@ -7,6 +7,18 @@ import Loading from '../Loading';
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    const { history, upcoming } = props;
+
+    this.state = {
+      totalResults: -1,
+    };
+
+    // here active when press home
+    const isBackUpcoming = history.action === 'REPLACE';
+
+    if (isBackUpcoming) {
+      upcoming({});
+    }
   }
 
   componentWillMount() {
@@ -21,25 +33,27 @@ export default class Home extends Component {
 
     changeTitle('The Upcoming Movies');
 
-    if (
-      !/search/g.test(location.pathname) &&
-      (!movies || !movies.results.length)
-    ) {
+    if (!movies || !movies.results.length) {
       genreMovie();
       upcoming({});
-    } else if (
-      /search/g.test(location.pathname) &&
-      (!movies || !movies.results.length)
-    ){
-      history.push('/');
-      genreMovie();
-      upcoming({});
+
+      // when reload page, if is search page redirect to home
+      if (/search/g.test(location.pathname)) {
+        history.push('/');
+      }
     }
   }
 
+  componentWillReceiveProps({ movies, loading }) {
+    this.setState({
+      loading: loading,
+      totalResults: movies.total_results,
+    });
+  }
+
   onChangePage(page) {
-    const { upcoming, query, search } = this.props;
-    if (query) {
+    const { upcoming, location, query, search } = this.props;
+    if (location.pathname === '/search') {
       search({ page, query });
     } else {
       upcoming({ page });
@@ -47,15 +61,23 @@ export default class Home extends Component {
   }
 
   render() {
-    const { movies, genre } = this.props;
+    const { movies, genre, location, loading } = this.props;
+    const { totalResults } = this.state;
 
-    if (!movies || !movies.results || !movies.results.length) {
+    if (loading) {
       return <Loading />;
+    } else if (totalResults === 0) {
+      return (
+        <p className="text-center text-warning mt-5 h1">
+          No results found
+        </p>
+      );
     }
 
     return (
       <Fragment>
         <Pagination
+          url={location.pathname}
           totalPages={movies.total_pages}
           currentPage={movies.page}
           changePage={(page) => this.onChangePage(page)}
@@ -70,6 +92,7 @@ export default class Home extends Component {
         </div>
 
         <Pagination
+          url={location.pathname}
           totalPages={movies.total_pages}
           currentPage={movies.page}
           changePage={(page) => this.onChangePage(page)}

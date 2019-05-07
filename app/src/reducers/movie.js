@@ -16,6 +16,7 @@ const defaultState = {
   movie: {},
   genre: [],
   query: '',
+  loading: true,
 };
 
 export const {
@@ -24,10 +25,11 @@ export const {
   search,
   resetDetails,
   genre,
+  isLoading,
 } = createActions({
   UPCOMING: async ({ page }) => {
     const data = await upcomingMovie({ page });
-    return { movies: data };
+    return { movies: data, loading: false };
   },
 
   DETAILS: async ({ idMovie }) => {
@@ -37,7 +39,7 @@ export const {
 
   SEARCH: async ({ page, query }) => {
     const data = await searchMovie({ page, query });
-    return { movies: data, query };
+    return { movies: data, query, loading: false };
   },
 
   RESET_DETAILS: () => ({ movie: {}}),
@@ -45,15 +47,22 @@ export const {
   GENRE: async () => {
     const data  = await genreMovie();
     return { genre: (data || {}).genres };
-  }
+  },
+
+  IS_LOADING: () => ({ loading: true })
 });
 
 const reducer = handleActions(
   {
     [combineActions(upcoming, search)]: (
       state,
-      { payload: { movies, query } }
-    ) => ({ ...state, movies, query }),
+      { payload: { movies, query, loading } }
+    ) => ({ ...state, movies, query, loading }),
+
+    [combineActions(isLoading)]: (
+      state,
+      { payload: { loading } }
+    ) => ({ ...state, loading }),
 
     [combineActions(details, resetDetails)]: (
       state,

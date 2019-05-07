@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import {
+  Redirect
+} from 'react-router-dom';
 
 import Loading from '../Loading';
 import { getImageRootPath, formatDate } from '../../services/movie';
@@ -31,6 +34,7 @@ export default class Details extends Component {
   }
 
   render() {
+    const { location, resetDetails } = this.props;
     const { movie = {} } = this.state;
     const {
       id,
@@ -39,8 +43,15 @@ export default class Details extends Component {
       overview,
       poster_path,
       backdrop_path,
-      genres
+      genres,
+      success,
     } = movie;
+    const params = new URLSearchParams(location.search);
+
+    if (success === false) {
+      resetDetails();
+      return <Redirect to="/" />
+    }
 
     if (!id) {
       return <Loading />;
@@ -81,7 +92,7 @@ export default class Details extends Component {
             )
           }
 
-          <a title="BACK" href="#/" className="position-absolute text-success btn-back">
+          <a title="BACK" href={`/#/${params.get('p')}`} className="position-absolute text-success btn-back">
             <i className="fas fa-arrow-left" />
           </a>
         </div>
