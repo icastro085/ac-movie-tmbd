@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { toastr } from 'react-redux-toastr';
 
 import CardMovie from './CardMovie';
 import Pagination from './Pagination';
@@ -45,10 +46,19 @@ export default class Home extends Component {
   }
 
   componentWillReceiveProps({ movies, loading }) {
-    this.setState({
-      loading: loading,
-      totalResults: movies.total_results,
-    });
+    if (movies.success === false) {
+      toastr.warning('Something goes wrong!!');
+
+      this.setState({
+        loading: false,
+        totalResults: 0,
+      });
+    } else {
+      this.setState({
+        loading: loading,
+        totalResults: movies.total_results,
+      });
+    }
   }
 
   onChangePage(page) {
