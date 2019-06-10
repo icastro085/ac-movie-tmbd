@@ -31,14 +31,18 @@ class Index {
   function middlewares($app) {
     $app->add(new \Psr7Middlewares\Middleware\TrailingSlash(false));
 
-    // $authenticator = function($request, TokenAuthentication $tokenAuth){
-    //   $token = $tokenAuth->findToken($request);
-    // };
+    $authenticator = function(
+      $request,
+      \Slim\Middleware\TokenAuthentication $tokenAuth
+    ){
+      $token = $tokenAuth->findToken($request);
+    };
 
-    // $app->add(new \Slim\Middleware\TokenAuthentication([
-    //   'path' => '/api',
-    //   'authenticator' => $authenticator
-    // ]));
+    $app->add(new \Slim\Middleware\TokenAuthentication([
+      'path' => ['/api/user'],
+      'regex' => '/\s+(.*)$/i',
+      'authenticator' => $authenticator
+    ]));
   }
 
   function setPageNotFound($container) {

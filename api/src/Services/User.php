@@ -32,11 +32,7 @@ class User {
 
   function saveAddress(array $data) {
     $email = $data['email'];
-
-    $address = $this->_db->row(
-      'SELECT * FROM "address" WHERE "email" = ?',
-      $email
-    );
+    $address = $this->getAddress($email);
 
     if ($address) {
       return $this->_db->update('address', $data, [

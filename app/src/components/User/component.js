@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { toastr } from 'react-redux-toastr';
 import gapi from 'gapi';
+import axios from 'axios';
 
 import Menu from './Menu';
 import Profile from './Profile';
@@ -39,9 +40,16 @@ export default class Home extends Component {
           picture: googleUser.getBasicProfile().getImageUrl(),
         };
 
-        // console.log(googleUser.getAuthResponse().id_token);
+        axios.defaults.headers.common['Authorization'] = (
+          'Basic ' + googleUser.getAuthResponse().id_token
+        );
+
         this.setState({ user }, () => {
-          getAddress(user.email).then((address) =>this.setState({ address }))
+          getAddress(user.email)
+            .then((address) =>this.setState({ address }))
+            .catch(() => {
+              toastr.warning('Something goes wrong!!');
+            });
         });
       },
       'onfailure': () => {
