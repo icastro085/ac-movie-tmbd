@@ -36,6 +36,12 @@ class Index {
       \Slim\Middleware\TokenAuthentication $tokenAuth
     ){
       $token = $tokenAuth->findToken($request);
+
+      $client = new \Google_Client();
+      $tokenData = $client->verifyIdToken($token);
+      if (!$tokenData) {
+        throw new \Exception('Unauthorized', 401);
+      }
     };
 
     $app->add(new \Slim\Middleware\TokenAuthentication([
@@ -57,7 +63,7 @@ class Index {
   function setErrorPage($container) {
     $container['errorHandler'] = function ($c) {
       return function ($request, $response, $exception) use ($c) {
-          return $response->withStatus(500)
+          return $response->withStatus($exception->getCode() ? $exception->getCode() : 500)
               ->withJson([
                 'message' => 'Something went wrong! - ' . $exception->getMessage()
               ]);
