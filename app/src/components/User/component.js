@@ -26,6 +26,8 @@ export default class Home extends Component {
     const { changeTitle } = this.props;
     changeTitle('User Profile');
 
+    gapi.load('auth2');
+
     gapi.signin2.render('google-signin', {
       'scope': 'profile email',
       'longtitle': true,

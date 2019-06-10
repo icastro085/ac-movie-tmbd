@@ -34,6 +34,23 @@
         color: #000;
       }
     }
+
+    &.logout {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translate(-50%);
+      border-bottom: 0;
+
+      &::after {
+        content: "";
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: #28a745;
+      }
+    }
   }
 }
 
