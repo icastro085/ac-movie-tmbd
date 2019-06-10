@@ -1,5 +1,8 @@
 {
   "tmdb": {
     "url": "https://api.themoviedb.org"
+  },
+  "database": {
+    "dsn": "pgsql:host=postgres;dbname=tmbd"
   }
 }

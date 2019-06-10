@@ -2,11 +2,14 @@
 
 namespace API;
 
+use Slim\Middleware\TokenAuthentication;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use \API\Controllers\Index as CIndex;
 use \API\Controllers\Movie as CMovie;
+use \API\Controllers\User as CUser;
 
 class Index {
   function __construct(\Slim\App $app) {
@@ -15,6 +18,7 @@ class Index {
     $this->setPageNotFound($container);
     $this->setErrorPage($container);
     $this->setConfig($container);
+    $this->setDataBase($container);
 
     $this->middlewares($app);
     $this->routes($app);
@@ -26,6 +30,15 @@ class Index {
 
   function middlewares($app) {
     $app->add(new \Psr7Middlewares\Middleware\TrailingSlash(false));
+
+    // $authenticator = function($request, TokenAuthentication $tokenAuth){
+    //   $token = $tokenAuth->findToken($request);
+    // };
+
+    // $app->add(new \Slim\Middleware\TokenAuthentication([
+    //   'path' => '/api',
+    //   'authenticator' => $authenticator
+    // ]));
   }
 
   function setPageNotFound($container) {
@@ -54,6 +67,18 @@ class Index {
     );
   }
 
+  function setDataBase($container) {
+    $container['db'] = function($c) {
+      $database = $c['config']->database;
+
+      return \ParagonIE\EasyDB\Factory::fromArray([
+        $database->dsn,
+        getenv('PGSQL_USER'),
+        getenv('PGSQL_PASS')
+      ]);
+    };
+  }
+
   function routes($app) {
 
     $app->get('/', CIndex::class . ':index');
@@ -63,6 +88,10 @@ class Index {
       $this->get('/movie/search', CMovie::class . ':search');
       $this->get('/movie/genre', CMovie::class . ':genre');
       $this->get('/movie/{idMovie}', CMovie::class . ':details');
+
+      $this->get('/user', CUser::class . ':index');
+      $this->get('/user/address', CUser::class . ':addressGet');
+      $this->post('/user/address', CUser::class . ':addressSave');
     });
   }
 }

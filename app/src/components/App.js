@@ -7,6 +7,7 @@ import {
 import AppPageHeader from './AppPageHeader';
 import Home from './Home';
 import Details from './Details';
+import User from './User';
 
 const App = () => (
   <Router>
@@ -18,6 +19,7 @@ const App = () => (
           <Route exact path="/upcoming" component={Home} />
           <Route exact path="/search" component={Home} />
           <Route exact path="/movie/:idMovie" component={Details} />
+          <Route path="/user" component={User} />
         </Switch>
       </section>
     </Fragment>

@@ -10,6 +10,8 @@ services:
     volumes:
       - ./api:/usr/src/api
     restart: always
+    links:
+      - postgres
 
   app:
     container_name: ac-movie-app
@@ -23,3 +25,20 @@ services:
     restart: always
     links:
       - api
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    links:
+      - postgres

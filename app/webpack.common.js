@@ -21,6 +21,9 @@ module.exports = {
       filename: '[hash].bundle.css',
     }),
   ],
+  externals: {
+    gapi: 'gapi',
+  },
   module: {
     rules: [
       {
