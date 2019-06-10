@@ -30,24 +30,10 @@ class Index {
 
   function middlewares($app) {
     $app->add(new \Psr7Middlewares\Middleware\TrailingSlash(false));
-
-    $authenticator = function(
-      $request,
-      \Slim\Middleware\TokenAuthentication $tokenAuth
-    ){
-      $token = $tokenAuth->findToken($request);
-
-      $client = new \Google_Client();
-      $tokenData = $client->verifyIdToken($token);
-      if (!$tokenData) {
-        throw new \Exception('Unauthorized', 401);
-      }
-    };
-
     $app->add(new \Slim\Middleware\TokenAuthentication([
       'path' => ['/api/user'],
       'regex' => '/\s+(.*)$/i',
-      'authenticator' => $authenticator
+      'authenticator' => new Middleware\Authenticator()
     ]));
   }
 
