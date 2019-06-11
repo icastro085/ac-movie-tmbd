@@ -31,7 +31,8 @@ class Index {
     $app->add(new \Slim\Middleware\TokenAuthentication([
       'path' => ['/api/user'],
       'regex' => '/\s+(.*)$/i',
-      'authenticator' => new Middleware\Authenticator()
+      'authenticator' => new Middleware\Authenticator(),
+      'secure' => false
     ]));
   }
 

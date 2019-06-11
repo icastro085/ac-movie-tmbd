@@ -3,9 +3,6 @@
 # creating frontend dist
 docker-compose run app yarn build
 
-# creating image
-docker build -t heroku-web-movie-ac .
-
 # login in heroku
 # heroku login
 
@@ -23,6 +20,9 @@ heroku container:release web --app web-movie-ac
 
 # if have some error
 # heroku logs --tail --app web-movie-ac
+
+# creating image
+# docker build -t heroku-web-movie-ac .
 
 # how you can entry in local container
 # docker run -it -p 4211:4211 -e PORT=4211 -e TMDB_API_KEY="" heroku-web-movie-ac

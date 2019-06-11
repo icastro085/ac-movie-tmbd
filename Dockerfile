@@ -16,10 +16,11 @@ COPY api/index.php .
 
 RUN rm -rf vendor
 RUN composer clear-cache
-RUN composer install --ignore-platform-reqs --no-scripts
+RUN composer install --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress
 VOLUME [ "$WORKDIR/vendor" ]
 
 COPY app/dist .
+COPY googlea7e95638c26fd590.html .
 
 # just to be used in local, dont work in heroku
 EXPOSE $PORT

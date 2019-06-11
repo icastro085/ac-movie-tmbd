@@ -6,6 +6,9 @@ const SRC_PATH = ROOT_PATH . 'src' . DS;
 require_once ROOT_PATH . 'vendor/autoload.php';
 require_once SRC_PATH . 'Autoloader.php';
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: *");
 
 $configuration = [
   'settings' => [
