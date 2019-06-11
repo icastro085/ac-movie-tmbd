@@ -5,3 +5,5 @@ app/node_modules
 app/yarn.lock
 app/yarn-error.log
 app/dist
+data
+.env
