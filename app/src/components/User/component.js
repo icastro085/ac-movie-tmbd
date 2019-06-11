@@ -46,7 +46,7 @@ export default class Home extends Component {
 
         this.setState({ user }, () => {
           getAddress(user.email)
-            .then((address) =>this.setState({ address }))
+            .then((address) =>this.setState({ address: address || {} }))
             .catch(() => {
               toastr.warning('Something goes wrong!!');
             });

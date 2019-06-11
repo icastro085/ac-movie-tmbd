@@ -3,11 +3,11 @@ import React, { Fragment } from 'react';
 const Address = ({
   onChangeAddress,
   saveAddress,
-  address = '',
-  city = '',
-  state = '',
-  number = '',
-  phone = '',
+  address,
+  city,
+  state,
+  number,
+  phone,
 }) => (
   <form onSubmit={() => {
     saveAddress();
@@ -20,7 +20,7 @@ const Address = ({
         className="form-control form-control-lg"
         placeholder="Ex.: Rua 20"
         onChange={(e) => onChangeAddress('address', e.target.value)}
-        defaultValue={address.trim()}
+        defaultValue={(address || '').trim()}
       />
       <small className="form-text text-muted">
         We'll never share your address with anyone else.
@@ -35,7 +35,7 @@ const Address = ({
           className="form-control form-control-lg"
           placeholder="Ex.: Manaus"
           onChange={(e) => onChangeAddress('city', e.target.value)}
-          defaultValue={city.trim()}
+          defaultValue={(city || '').trim()}
         />
       </div>
 
@@ -46,7 +46,7 @@ const Address = ({
           className="form-control form-control-lg"
           placeholder=" Ex.: AM"
           onChange={(e) => onChangeAddress('state', e.target.value)}
-          defaultValue={state.trim()}
+          defaultValue={(state || '').trim()}
         />
       </div>
 
@@ -57,7 +57,7 @@ const Address = ({
           className="form-control form-control-lg"
           placeholder="Ex.: 20-A"
           onChange={(e) => onChangeAddress('number', e.target.value)}
-          defaultValue={number.trim()}
+          defaultValue={(number || '').trim()}
         />
       </div>
     </div>
@@ -70,7 +70,7 @@ const Address = ({
           className="form-control form-control-lg"
           placeholder="Ex.: 92 9888-9955"
           onChange={(e) => onChangeAddress('phone', e.target.value)}
-          defaultValue={phone.trim()}
+          defaultValue={(phone || '').trim()}
         />
       </div>
     </div>

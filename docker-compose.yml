@@ -12,6 +12,11 @@ services:
     restart: always
     links:
       - postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TMDB_API_KEY: ${TMDB_API_KEY}
 
   app:
     container_name: ac-movie-app
@@ -28,15 +33,19 @@ services:
 
   postgres:
     image: postgres
-    container_name: postgres
+    container_name: ${POSTGRES_HOST}
     restart: always
     environment:
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
     volumes:
       - ./data/postgresql:/var/lib/postgresql/data
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 8080:8080

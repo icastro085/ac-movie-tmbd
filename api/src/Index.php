@@ -15,6 +15,8 @@ class Index {
   function __construct(\Slim\App $app) {
     $container = $app->getContainer();
 
+    \Dotenv\Dotenv::create(ROOT_PATH)->load();
+
     $this->setPageNotFound($container);
     $this->setErrorPage($container);
     $this->setConfig($container);
@@ -22,8 +24,6 @@ class Index {
 
     $this->middlewares($app);
     $this->routes($app);
-
-    \Dotenv\Dotenv::create(ROOT_PATH)->load();
 
     $app->run();
   }
@@ -66,11 +66,10 @@ class Index {
   function setDataBase($container) {
     $container['db'] = function($c) {
       $database = $c['config']->database;
-
       return \ParagonIE\EasyDB\Factory::fromArray([
-        $database->dsn,
-        getenv('PGSQL_USER'),
-        getenv('PGSQL_PASS')
+        $database->dsn . ';dbname=' . getenv('POSTGRES_DB'),
+        getenv('POSTGRES_USER'),
+        getenv('POSTGRES_PASSWORD')
       ]);
     };
   }

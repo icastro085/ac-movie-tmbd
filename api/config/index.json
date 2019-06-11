@@ -3,6 +3,6 @@
     "url": "https://api.themoviedb.org"
   },
   "database": {
-    "dsn": "pgsql:host=postgres;dbname=tmbd"
+    "dsn": "pgsql:host=ec2-54-225-72-238.compute-1.amazonaws.com;port=5432"
   }
 }
