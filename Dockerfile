@@ -19,9 +19,6 @@ RUN composer clear-cache
 RUN composer install --ignore-platform-reqs --no-scripts
 VOLUME [ "$WORKDIR/vendor" ]
 
-# create empty .env
-RUN touch .env
-
 COPY app/dist .
 
 # just to be used in local, dont work in heroku
