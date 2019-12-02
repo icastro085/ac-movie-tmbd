@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -11,15 +12,52 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      favicon: './src/favicon.png',
+    }),
     new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[hash].bundle.css',
+    }),
   ],
+  externals: {
+    gapi: 'gapi',
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: ['babel-loader'],
+      },
+
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              sourceMap: true,
+            },
+          },
+          require.resolve('resolve-url-loader'),
+          {
+            loader: require.resolve('sass-loader'),
+            options: {
+              sourceMap: true,
+              sourceMapContents: false,
+            },
+          },
+        ],
+      },
+
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          require.resolve('file-loader'),
+        ],
       },
     ],
   },

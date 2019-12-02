@@ -9,7 +9,6 @@ class Index {
   }
 
   function index(Request $request, Response $response) {
-    $response->getBody()->write('Hello');
-    return $response;
+    return $response->write(file_get_contents(ROOT_PATH . 'index.html'));
   }
 }

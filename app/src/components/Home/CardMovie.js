@@ -1,0 +1,85 @@
+import React from 'react';
+import { withRouter } from 'react-router';
+
+import { getImageRootPath, formatDate } from '../../services/movie';
+
+const TEXT_LIMIT = 150;
+const TITLE_LIMIT = 25;
+
+const CardMovie = ({
+  id,
+  title,
+  poster_path,
+  backdrop_path,
+  overview,
+  release_date,
+  genre_ids,
+  genre,
+  location,
+}) => {
+
+  const urlDetails = `/#/movie/${id}?p=${location.pathname.substring(1) || 'upcoming'}`;
+
+  return (
+    <div className="col-lg-6 mb-4 col-md-12">
+      <div className="border-bottom card-movie d-flex">
+        <div className="p-3 w-100 position-relative">
+          <div>
+            <div>
+            {
+              (genre || []).filter((genre) => (
+                genre_ids.indexOf(genre.id) !== -1
+              )).map((genre) => (
+                  <span 
+                    key={genre.id}
+                    className="genre-list mr-2"
+                  >
+                    {genre.name}
+                  </span>
+                )
+              )
+            }
+            </div>
+            <h5 className="title">
+              <a href={urlDetails}>
+                {title.substring(0, TITLE_LIMIT)}
+                {title.length > TITLE_LIMIT ? '...' : ''}
+              </a>
+            </h5>
+            <span className="date">
+              <i className="far fa-calendar-alt mr-2" />
+              {formatDate(release_date)}
+            </span>
+          </div>
+
+          {
+            overview && (
+              <p className="overview mt-2 mb-5">
+                <i className="fas fa-info-circle mr-2" />
+                {overview.substring(0, TEXT_LIMIT)}
+                {overview.length > TEXT_LIMIT ? '...' : null}
+              </p>
+            )
+          }
+
+          <a
+            title="SEE MORE"
+            href={urlDetails}
+            className="see-more font-weight-bold text-success"
+          >
+            <i className="fas fa-arrow-right" />
+          </a>
+        </div>
+
+        {
+          (poster_path || backdrop_path) &&
+          <a href={urlDetails}>
+            <img alt={title} src={`${getImageRootPath(185, 278)}${poster_path || backdrop_path}`} />
+          </a>
+        }
+      </div>
+    </div>
+  );
+};
+
+export default withRouter(CardMovie);
